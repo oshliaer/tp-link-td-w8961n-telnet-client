@@ -19,6 +19,3 @@
 - Обновлен раздел `Configuration` в `README.md`.
 - Удален `ROUTER_USERNAME` из `config.py` и `.env`, так как он не используется.
 - Обновлен синтаксис `super()` в `QualityCommand` до современного Python 3.
-
-### Changed
-- Конвертирован `tp-w8961n-status.py` для совместимости с Python 3 (Этапы 1.2-1.5).
