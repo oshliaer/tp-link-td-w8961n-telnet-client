@@ -23,7 +23,13 @@ This project is a Python-based Telnet client designed to interact with TP-Link T
 
 ## Configuration
 
-(To be added in a later step - .env file for sensitive information)
+Create a `.env` file in the root of the project with the following variables:
+
+```
+ROUTER_IP=192.168.1.1
+ROUTER_PASSWORD=admin
+POLLING_INTERVAL_SECONDS=60
+```
 
 ## Usage
 

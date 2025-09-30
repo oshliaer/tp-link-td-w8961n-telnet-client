@@ -69,7 +69,7 @@ class QualityCommand(Command):
         if direction not in ['downstream', 'upstream']:
             raise Exception('Unknown direction, must be "downstream" or "upstream"')
         self.direction = direction
-        super(QualityCommand, self).__init__()
+        super().__init__()
 
     def get_cmd(self):
         if self.direction == 'downstream':
@@ -100,4 +100,4 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             raise
         except Exception as e:
-            print(f"Произошла ошибка: {e}", file=sys.stderr)
+            print(f"An error occurred: {e}", file=sys.stderr)
