@@ -27,3 +27,7 @@ The script will connect to the router at `192.168.1.1` (default IP, hardcoded in
 *   **Data Parsing:** Employs the `re` module (regular expressions) to parse the text-based output received from the Telnet session.
 *   **Object-Oriented Design:** Commands are encapsulated within classes (`StatusCommand`, `RateCommand`, `QualityCommand`) inheriting from a base `Command` class, promoting modularity.
 *   **Error Handling:** Basic error handling is implemented for Telnet connection issues and keyboard interrupts.
+
+## Правила разработки
+
+*   **Язык:** Весь текст, комментарии и сообщения для пользователя должны быть на русском языке на момент разработки.

@@ -1,6 +1,8 @@
 import telnetlib
 import re
 import time
+import sys
+from config import Config
 
 
 class TPW8961N(object):
@@ -10,18 +12,18 @@ class TPW8961N(object):
 
     def __enter__(self):
         self.con = telnetlib.Telnet(self.host, 23, 5)
-        self.con.read_until('Password: ')
-        self.con.write('admin\n')
-        self.con.read_until('TP-LINK> ')
+        self.con.read_until(b'Password: ')
+        self.con.write(Config.ROUTER_PASSWORD.encode('ascii') + b'\n')
+        self.con.read_until(b'TP-LINK> ')
         return self
 
     def __exit__(self, exc_type, exc_val, exc_tb):
-        self.con.write('exit\n')
+        self.con.write(b'exit\n')
         self.con.read_all()
 
     def send_cmd(self, cmd):
-        self.con.write(cmd.get_cmd() + '\n')
-        response = self.con.read_until('TP-LINK> ')
+        self.con.write((cmd.get_cmd() + '\n').encode('ascii'))
+        response = self.con.read_until(b'TP-LINK> ').decode('ascii')
         return cmd.parse(response)
 
 
@@ -67,7 +69,7 @@ class QualityCommand(Command):
         if direction not in ['downstream', 'upstream']:
             raise Exception('Unknown direction, must be "downstream" or "upstream"')
         self.direction = direction
-        super(Command, self).__init__()
+        super().__init__()
 
     def get_cmd(self):
         if self.direction == 'downstream':
@@ -88,14 +90,14 @@ if __name__ == '__main__':
 
     while True:
         try:
-            print time.strftime('%Y-%m-%d %H:%M-%S')
-            with TPW8961N('192.168.1.1') as modem:
-                print modem.send_cmd(StatusCommand())
-                print modem.send_cmd(RateCommand())
-                print modem.send_cmd(QualityCommand('downstream'))
-                print modem.send_cmd(QualityCommand('upstream'))
-            time.sleep(60)
+            print(time.strftime('%Y-%m-%d %H:%M-%S'))
+            with TPW8961N(Config.ROUTER_IP) as modem:
+                print(modem.send_cmd(StatusCommand()))
+                print(modem.send_cmd(RateCommand()))
+                print(modem.send_cmd(QualityCommand('downstream')))
+                print(modem.send_cmd(QualityCommand('upstream')))
+            time.sleep(Config.POLLING_INTERVAL_SECONDS)
         except KeyboardInterrupt:
             raise
-        except e:
-            print e
+        except Exception as e:
+            print(f"An error occurred: {e}", file=sys.stderr)
