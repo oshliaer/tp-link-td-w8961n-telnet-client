@@ -1,6 +1,7 @@
 import telnetlib
 import re
 import time
+import sys
 
 
 class TPW8961N(object):
@@ -98,4 +99,4 @@ if __name__ == '__main__':
         except KeyboardInterrupt:
             raise
         except Exception as e:
-            print(e)
+            print(f"Произошла ошибка: {e}", file=sys.stderr)
