@@ -19,3 +19,4 @@
 - Обновлен раздел `Configuration` в `README.md`.
 - Удален `ROUTER_USERNAME` из `config.py` и `.env`, так как он не используется.
 - Обновлен синтаксис `super()` в `QualityCommand` до современного Python 3.
+- Обновлен URL репозитория в `README.md`.
