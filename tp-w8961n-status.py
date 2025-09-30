@@ -11,7 +11,7 @@ class TPW8961N(object):
     def __enter__(self):
         self.con = telnetlib.Telnet(self.host, 23, 5)
         self.con.read_until(b'Password: ')
-        self.con.write(b'admin\n')
+        self.con.write(b'Rjctyrjdf23788\n')
         self.con.read_until(b'TP-LINK> ')
         return self
 
@@ -67,7 +67,7 @@ class QualityCommand(Command):
         if direction not in ['downstream', 'upstream']:
             raise Exception('Unknown direction, must be "downstream" or "upstream"')
         self.direction = direction
-        super(Command, self).__init__()
+        super(QualityCommand, self).__init__()
 
     def get_cmd(self):
         if self.direction == 'downstream':
